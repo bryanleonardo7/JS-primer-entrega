@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+* {
+    font-family: 'Helvetica', sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+span {
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 23px;
+    background-color: red;
+    border-radius: 4px;
+    padding: 0  0.4rem;
+    font-style: italic;
+}
