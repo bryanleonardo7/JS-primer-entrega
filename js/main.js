@@ -1,15 +1,15 @@
 
 // let y while
 
-let entrada = alert ("Bienvenido Agencias de Autos!");
+let entrada = alert ("Bienvenido Agencias de Alquiler Autos!");
 let ingresarEdad = parseInt(prompt("Ingresa tu edad"));
 while (ingresarEdad < 16) {
-    console.log("No tenes Edad para Comprar Autos");
+    console.log("No tenes Edad para Alquilar Autos");
     ingresarEdad = parseInt(prompt("Ingresa tu Edad"));
 }
 
 
- //let 
+ //----LET---//
 
 let valorAutos;
 
@@ -45,3 +45,41 @@ let auto = prompt(`Seleccione un Auto para Comprar!:
     }alert(`El valor del Auto seleccionada es de $${valorAutos}`);
 
     alert('Gracias por eligirnos para comprar el auto de tus sueños!')
+
+    //----ARRAYS CON OBJETO---//
+    const autosEnAlquiler = [
+    {
+        id:1,
+        marca: "Ford",
+        tipo: 'focus',
+        fabrica: "Fue lanzado en 1999",
+    },
+    {
+        id:2,
+        marca: "Peugeot",
+        tipo: '207',
+        fabrica: "Fue lanzado en 2006",
+    },
+    {
+        id:3,
+        marca: "Fiat",
+        tipo: 'Argo',
+        fabrica: "Fue lanzado en 2017",
+    },{
+        id:4,
+        marca: "Volkswagen",
+        tipo: 'Gol Trend',
+        fabrica: "Fue lanzado en 1980",
+    },
+];
+
+    //-----FIND----//
+    let valorAlquiler = "Ford"
+    const busqueda = autosEnAlquiler.find(autosEnAlquiler => autosEnAlquiler.nombre === valorAlquiler)
+    console.log(busqueda)
+
+
+
+
+
+
