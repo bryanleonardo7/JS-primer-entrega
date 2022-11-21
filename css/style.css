@@ -1,17 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-
 * {
-    font-family: 'Helvetica', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none
 }
-
-h1 {
-    text-align: center;
+td{
+    text-transform: capitalize;
 }
-span {
-    font-family: 'Anton', sans-serif;
-    letter-spacing: 23px;
-    background-color: red;
-    border-radius: 4px;
-    padding: 0  0.4rem;
-    font-style: italic;
+td img {
+    max-width: 150px;
+    max-height: 150px;
 }

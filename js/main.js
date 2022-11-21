@@ -1,83 +1,168 @@
 
-// let y while
+const titulo = document.querySelector("#titulo"),
+autor = document.querySelector("#autor"),
+isbn = document.querySelector("#isbn"),
+categoria = document.querySelector("#categoria"),
+precio = document.querySelector("#precio"),
+img = document.querySelector("#img"),
+search = document.querySelector("#search"),
+tbody = document.querySelector("#table-body"),
+btnGuardar = document.querySelector("#btnGuardar");
+const radios = document.querySelectorAll('input[type="radio"]');
 
-let entrada = alert ("Bienvenido Agencias de Alquiler Autos!");
-let ingresarEdad = parseInt(prompt("Ingresa tu edad"));
-while (ingresarEdad < 16) {
-    console.log("No tenes Edad para Alquilar Autos");
-    ingresarEdad = parseInt(prompt("Ingresa tu Edad"));
+//Libros ya guardados en inventario
+const inventario = [
+{
+titulo: "cuentos completos",
+autor: "edgard alan poe",
+isbn: "9788491052166",
+categoria: "cuento",
+precio: 2500.99,
+img: "http://boutiquedezothique.es/793-large_default/cuentos-completos-edgar-allan-poe.jpg",
+},
+{
+titulo: "quien pierde paga",
+autor: "stephen king",
+isbn: "9789506443924",
+categoria: "terror",
+precio: 1800.99,
+img: "http://d2r9epyceweg5n.cloudfront.net/stores/001/421/275/products/king_quienpierdepaga_libro3d1-186af08b4fbf47f81116071041288636-640-0.png",
+},
+];
+//Seteo variable libros, si LS vacio entonces libros = []
+
+let libros;
+if (JSON.parse(localStorage.getItem("inventario"))) {
+libros = JSON.parse(localStorage.getItem("inventario"));
+} else {
+libros = [];
 }
 
+//Constructor del objeto Libro
+function Libro(titulo, autor, isbn, categoria, precio, img) {
+this.titulo = titulo;
+this.autor = autor;
+this.isbn = isbn;
+this.categoria = categoria;
 
- //----LET---//
+if (precio == "") {
+this.precio = 1;
+} else {
+this.precio =parseFloat(precio);
+}
+//Si campo img vacío img genérica
+if(img==''){
+this.img=  `https://via.placeholder.com/150`;
+}else{
+this.img= img;
+}
+}
 
-let valorAutos;
+/* Declaración de Funciones */
+//Cargar al inventario
+function cargarInventario(arr, libro) {
+return arr.push(libro);
+}
+//Funciones de LS
+function guardarLS(arr) {
+localStorage.setItem("inventario", JSON.stringify(arr));
+}
 
-let auto = prompt(`Seleccione un Auto para Comprar!:
-    1. Auto (ford)
-    2. Auto (Peugeot)
-    3. Auto (Fiat)
-    4. Auto (Volkswagen)`)
+function recuperarLS(key) {
+return JSON.parse(localStorage.getItem(key));
+}
 
-    while (auto != "x" && auto != "X") {
-        switch (auto) {
-            case "1":
-                valorAutos = 4500000;
-                break;
-            case "2":
-                valorAutos = 3321500;
-                break;
-            case "3":
-                valorAutos = 1312000;
-                break;
-            case "4":
-                valorAutos = 3568450;
-                break;
-                break;
-            default:
-                prompt(`Seleccione un Auto para manejar en nuestra Agencia!:
-                1. Auto (ford)
-                2. Auto (Peugeot)
-                3. Auto (Fiat)
-                4. Auto (Volkswagen)`);
-                break;
-        }break;
-    }alert(`El valor del Auto seleccionada es de $${valorAutos}`);
+//Función de búsqueda genérica
+function filtrar(arr, filtro, param) {
+return arr.filter((el) => {
+if (param == "precio") {
+    return el[`${param}`] <= parseFloat(filtro);
+} else {
+    return el[`${param}`].includes(filtro);
+}
+});
+}
 
-    alert('Gracias por eligirnos para comprar el auto de tus sueños!')
+//Manipular el DOM
+function crearHtml(arr) {
+tbody.innerHTML = "";
 
-    //----ARRAYS CON OBJETO---//
-    const autosEnAlquiler = [
-    {
-        id:1,
-        marca: "Ford",
-        tipo: 'focus',
-        fabrica: "Fue lanzado en 1999",
-    },
-    {
-        id:2,
-        marca: "Peugeot",
-        tipo: '207',
-        fabrica: "Fue lanzado en 2006",
-    },
-    {
-        id:3,
-        marca: "Fiat",
-        tipo: 'Argo',
-        fabrica: "Fue lanzado en 2017",
-    },{
-        id:4,
-        marca: "Volkswagen",
-        tipo: 'Gol Trend',
-        fabrica: "Fue lanzado en 1980",
-    },
-];
+let html = "";
+for (const item of arr) {
+html = `<tr>
+            <td>${item.titulo}</td>
+            <td>${item.autor}</td>
+            <td>${item.isbn}</td>
+            <td>${item.categoria}</td>
+            <td>${item.precio}</td>
+            <td><img src="${item.img}"/></td>
+            <td><button class="btn red" id="${item.isbn}">Borrar</button></td>
+        </tr>`;
+tbody.innerHTML += html;
+}
+/* Agregar eventos a los botones */
+const arrayBotones = document.querySelectorAll('td .btn');
+arrayBotones.forEach(btn=>{
+btn.addEventListener('click', ()=>{
+    console.log(btn.id);
+    libros= libros.filter(el=>el.isbn != btn.id);
+    guardarLS(libros);
+    crearHtml(libros)
+})
+})
 
-    //-----FIND----//
-    let valorAlquiler = "Ford"
-    const busqueda = autosEnAlquiler.find(autosEnAlquiler => autosEnAlquiler.nombre === valorAlquiler)
-    console.log(busqueda)
+}
 
+function limpiarCampos() {
+titulo.value = "";
+autor.value = "";
+isbn.value = "";
+categoria.value = "";
+precio.value = "";
+img.value = "";
+}
+/* Fin de funciones */
+
+/* Ejecución de funciones */
+guardarLS(libros);
+crearHtml(libros);
+
+//Listeners
+btnGuardar.addEventListener("click", () => {
+const nuevoLibro = new Libro(
+titulo.value,
+autor.value,
+isbn.value,
+categoria.value,
+precio.value,
+img.value
+);
+cargarInventario(libros, nuevoLibro);
+limpiarCampos();
+guardarLS(libros);
+crearHtml(libros);
+});
+
+//Listeners de búsqueda
+search.addEventListener("input", () => {
+let nuevoFiltro = filtrar(libros, search.value, "titulo");
+crearHtml(nuevoFiltro);
+});
+
+//Busqueda personalizada
+for (const radio of radios) {
+console.log(radio);
+radio.addEventListener('change', ()=>{
+if(radio.checked){
+    //llamo al funcion generica
+    search.addEventListener("input", () => {
+    let nuevoFiltro = filtrar(libros, search.value, radio.value);
+    crearHtml(nuevoFiltro);
+    });
+
+}
+})
+}
 
 
 
