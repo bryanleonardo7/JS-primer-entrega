@@ -1,0 +1,18 @@
+[
+  {
+    "titulo": "cuentos completos",
+    "autor": "edgard alan poe",
+    "isbn": "9788491052166",
+    "categoria": "cuento",
+    "precio": 2500.99,
+    "img": "http://boutiquedezothique.es/793-large_default/cuentos-completos-edgar-allan-poe.jpg"
+  },
+  {
+    "titulo": "quien pierde paga",
+    "autor": "stephen king",
+    "isbn": "9789506443924",
+    "categoria": "terror",
+    "precio": 1800.99,
+    "img": "http://d2r9epyceweg5n.cloudfront.net/stores/001/421/275/products/king_quienpierdepaga_libro3d1-186af08b4fbf47f81116071041288636-640-0.png"
+  }
+]
