@@ -1,15 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Raleway', sans-serif;
-    text-decoration: none
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  text-decoration: none;
 }
-td{
-    text-transform: capitalize;
+td {
+  text-transform: capitalize;
 }
 td img {
-    max-width: 150px;
-    max-height: 150px;
+  max-width: 150px;
+  max-height: 150px;
+}
+
+#btnGuardar {
+  width: 100%;
+}
+
+#table-body > tr > td {
+  width: 160px;
+  white-space: initial;
 }
